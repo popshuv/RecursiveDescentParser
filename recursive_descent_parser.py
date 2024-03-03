@@ -1,10 +1,12 @@
 class Parser:    
     def __init__(self, tokens):
+        # Convert the tokens into an iterator
         self.tokens = iter(tokens) 
         self.current_token = None
         self.next_token()
 
     def next_token(self):
+        # Get the next token from the iterator
         self.current_token = next(self.tokens, None)
     
     def parse_expression(self):
@@ -13,7 +15,7 @@ class Parser:
         return self.parse_expression_prime(value)
 
     def parse_expression_prime(self, val):
-    # E' -> +TE' | -TE' | ε
+        # E' -> +TE' | -TE' | ε
         if self.current_token in ('+', '-'):
             op = self.current_token
             self.next_token()
@@ -32,7 +34,7 @@ class Parser:
         return self.parse_term_prime(value)
     
     def parse_term_prime(self, val):
-    # T' -> *FT' | /FT' | ε
+        # T' -> *FT' | /FT' | ε
         if self.current_token in ('*', '/'):
             op = self.current_token
             self.next_token()
@@ -42,7 +44,7 @@ class Parser:
             else:
                 val /= value
             return self.parse_term_prime(val)
-        return val  # Return the current value if no more * or / is found
+        return val  
 
     
     def parse_factor(self):
