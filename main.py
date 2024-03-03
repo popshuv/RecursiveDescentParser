@@ -2,19 +2,18 @@ from lexer import tokenizer
 from recursive_descent_parser import Parser
 
 def main():
-    expr = "3 + 5 * (2 - 1) / 5"
-    
-    tokens = tokenizer(expr)
+    test_cases = [
+        "2 + 3",
+        "4 * 5",
+        "(1 + 2) * 3",
+        "7 / (3 + 4) - 2",
+    ]
 
-    parser = Parser(tokens)
-
-    try:
+    for expr in test_cases:
+        tokens = tokenizer(expr)
+        parser = Parser(tokens)
         result = parser.parse_expression()
-        print(f"The result of '{expr}' is: {result}")
-    except (ValueError, SyntaxError) as e:
-        print(f"Error in parsing the expression: {e}")
-
+        print(f"Expression: {expr}, Result: {result}")
 
 main()
-
 
